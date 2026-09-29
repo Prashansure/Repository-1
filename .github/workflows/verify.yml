@@ -1,0 +1,110 @@
+# Python Open Source Challenge — verify
+#
+# Every file in this repository is broken on purpose, so running all ninety on
+# every pull request would always fail and would tell nobody anything.
+#
+# Instead this runs ONLY the files the pull request actually changed, and
+# requires each of them to print "All checks passed!". That is the same command
+# the contributor runs on their own machine, so a red check here is always
+# reproducible locally in one line.
+name: Verify
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changed-issues:
+    name: the files you changed pass their own checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Work out which issue files changed
+        id: changed
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          if [ -z "$base" ]; then
+            echo "Not a pull request — nothing to compare against."
+            echo "files=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          files=$(git diff --name-only --diff-filter=ACMR "$base" "$head" \
+                  -- 'python-open-source-challenge/*.py' | tr '\n' ' ')
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          if [ -z "$files" ]; then
+            echo "No issue files changed in this pull request."
+          else
+            echo "Will verify: $files"
+          fi
+
+      - name: Run each changed file
+        if: steps.changed.outputs.files != ''
+        run: |
+          failed=0
+          for f in ${{ steps.changed.outputs.files }}; do
+            echo "::group::$f"
+            if output=$(python3 "$f" 2>&1); then
+              if echo "$output" | grep -q "All checks passed!"; then
+                echo "$output"
+                echo "PASS - $f"
+              else
+                echo "$output"
+                echo "::error file=$f::This file ran without error but never printed 'All checks passed!'."
+                echo "Check that check_solution() is still called at the bottom of the file."
+                failed=1
+              fi
+            else
+              echo "$output"
+              echo "::error file=$f::Not fixed yet — this file still fails its own checks."
+              echo "Reproduce it locally with:    python3 $f"
+              echo "The failing 'assert' line above names the exact input and the expected result."
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $failed
+
+      - name: Nothing to check
+        if: steps.changed.outputs.files == ''
+        run: |
+          echo "This pull request does not change any file in python-open-source-challenge/."
+          echo "That is fine — documentation and workflow changes do not need this check."
+
+  one-issue-per-pr:
+    name: one issue per pull request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Keeping pull requests to a single file is what makes eighty of them
+      # reviewable in one afternoon. This warns rather than blocks, because a
+      # contributor who genuinely claimed two issues is not doing anything wrong.
+      - name: Count changed issue files
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          count=$(git diff --name-only --diff-filter=ACMR "$base" "$head" \
+                  -- 'python-open-source-challenge/*.py' | wc -l | tr -d ' ')
+          echo "Issue files changed: $count"
+          if [ "$count" -gt 1 ]; then
+            echo "::warning::This pull request changes $count issue files."
+            echo "Pull requests are easiest to review when they fix one issue each."
+            echo "If you claimed more than one issue, consider splitting this up."
+          fi

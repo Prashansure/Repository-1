@@ -1,7 +1,9 @@
 # ISSUE 23
 #
 # Problem:
-# Write a program that accepts a list of integers and rearranges them according to their frequency, placing numbers with the same frequency in numerical order.
+# Write a program that accepts a list of integers and rearranges them so that the
+# rarest numbers come first. Numbers that occur the same number of times keep the
+# order in which they first appeared in the input.
 #
 # This file contains an incomplete implementation.
 # Do not rewrite the program from scratch.

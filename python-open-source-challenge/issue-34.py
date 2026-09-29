@@ -1,7 +1,10 @@
 # ISSUE 34
 #
 # Problem:
-# Write a program that accepts product inventory records containing stock, sold quantity and reorder level and identifies products that have reached their reorder level.
+# Write a program that accepts product inventory records containing stock, sold
+# quantity and reorder level, and identifies every product whose remaining stock
+# has fallen BELOW its reorder level. A product sitting exactly on its reorder
+# level is still fine and must not be listed.
 #
 # This file contains an incomplete implementation.
 # Do not rewrite the program from scratch.

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: How to contribute
+    url: ../../blob/main/CONTRIBUTING.md
+    about: Read this before opening your first pull request. It covers claiming, branching and what gets rejected.
+  - name: Browse the challenge issues
+    url: ../../issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+    about: Ninety broken programs waiting to be fixed. Comment /claim on one to start.

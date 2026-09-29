@@ -27,7 +27,7 @@ def even_digits(number):
     return collect(0)
 
 def check_solution():
-    assert even_digits(52847) == [2,4]
+    assert even_digits(52847) == [2, 8, 4]
     assert even_digits(135) == []
     assert even_digits(0) == [0]
 

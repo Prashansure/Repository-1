@@ -25,7 +25,7 @@ def vowel_positions(text):
     # TODO: Check that the calculation uses the intended values.
 
 def check_solution():
-    assert vowel_positions("OpenAI") == [0, 1, 4, 5]
+    assert vowel_positions("OpenAI") == [0, 2, 4, 5]
     assert vowel_positions("queue") == [1, 2, 3, 4]
     assert vowel_positions("rhythm") == []
 

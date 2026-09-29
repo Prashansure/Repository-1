@@ -1,0 +1,93 @@
+# Label set for the Python Open Source Challenge.
+# Synced automatically by .github/workflows/labels.yml on every push to main.
+#
+# Three axes, and every issue carries one of each:
+#   difficulty:  how hard is it
+#   topic:       what will you practise
+#   status:      where is it up to
+# Everything else is occasional.
+
+# --- Entry points ---
+- name: "good first issue"
+  color: "7057FF"
+  description: "Great for your very first pull request"
+- name: "help wanted"
+  color: "008672"
+  description: "Maintainers would like community help here"
+- name: "hacktoberfest"
+  color: "FF8AE2"
+  description: "Part of the Hacktoberfest 2026 challenge"
+
+# --- Difficulty: exactly one per issue ---
+- name: "difficulty: beginner"
+  color: "0E8A16"
+  description: "One loop or one condition. If you know if and for, you can do this"
+- name: "difficulty: intermediate"
+  color: "FBCA04"
+  description: "Several moving parts: grouping, dictionaries, more than one return value"
+- name: "difficulty: advanced"
+  color: "D93F0B"
+  description: "Recursion, or an algorithm to think through before you type"
+
+# --- Topic: what you will practise ---
+- name: "topic: strings"
+  color: "1D76DB"
+  description: "Working with text, characters and words"
+- name: "topic: lists"
+  color: "1D76DB"
+  description: "Building, filtering and scanning lists"
+- name: "topic: dictionaries"
+  color: "1D76DB"
+  description: "Counting, grouping and looking things up by key"
+- name: "topic: sets"
+  color: "1D76DB"
+  description: "Membership, duplicates, intersections and differences"
+- name: "topic: recursion"
+  color: "5319E7"
+  description: "A function that calls itself"
+- name: "topic: aggregation"
+  color: "006B75"
+  description: "Totals, averages and summaries over records"
+- name: "topic: sorting"
+  color: "006B75"
+  description: "Ordering results, ranking and tie-breaking"
+- name: "topic: numbers"
+  color: "006B75"
+  description: "Arithmetic, digits, rates and thresholds"
+- name: "topic: algorithms"
+  color: "5319E7"
+  description: "Searching, scanning windows and generating combinations"
+
+# --- Status: managed by bots and maintainers ---
+- name: "status: claimed"
+  color: "FEF2C0"
+  description: "Someone is working on this — pick a different one"
+- name: "status: needs-review"
+  color: "FEF2C0"
+  description: "A pull request is open and waiting on a maintainer"
+- name: "status: changes-requested"
+  color: "E99695"
+  description: "A reviewer has asked for changes"
+- name: "status: blocked"
+  color: "E99695"
+  description: "Waiting on something else before it can move"
+
+# --- Housekeeping ---
+- name: "bug"
+  color: "D73A4A"
+  description: "Something in the repository itself is wrong"
+- name: "documentation"
+  color: "0075CA"
+  description: "README, CONTRIBUTING or comments"
+- name: "enhancement"
+  color: "A2EEEF"
+  description: "A new idea for the challenge"
+- name: "duplicate"
+  color: "CFD3D7"
+  description: "This already exists somewhere else"
+- name: "invalid"
+  color: "E4E669"
+  description: "Not a real issue, or not actionable as written"
+- name: "spam"
+  color: "B60205"
+  description: "Low-effort or automated. Closed without review"

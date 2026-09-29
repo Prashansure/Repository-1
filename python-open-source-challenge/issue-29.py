@@ -19,10 +19,10 @@ def keep_even(values):
         rest = visit(index + 1)
         value = values[index]
         # TODO: Check the condition for retaining a value.
-        if value % 2 == 0:
+        if value % 2 == 1:
             # TODO: Check how the current item is placed in the result.
             # TODO: Check where the current value belongs in the filtered sequence.
-            return [value] + rest
+            return rest + [value]
         return rest
     # TODO: Check which index begins the recursive filter.
     return visit(0)

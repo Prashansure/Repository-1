@@ -1,7 +1,7 @@
 # ISSUE 72
 #
 # Problem:
-# Write a program that accepts a list of products containing category, price and quantity and calculates the total value of products in each category.
+# Write a program that accepts a list of products containing category, price and quantity, calculates the total value of the products in each category, and also reports which single category holds the most value.
 #
 # This file contains an incomplete implementation.
 # Do not rewrite the program from scratch.
@@ -19,13 +19,19 @@ def category_values(products):
         value = product["price"] + product["quantity"]
         # TODO: Check how multiple products in a category are accumulated.
         totals[category] = totals.get(category, 0) + value
+    # TODO: Check which category the report should single out.
+    # TODO: Check what the highest category should be when there are no products.
+    highest = min(totals, key=totals.get)
     # TODO: Check the result for an empty product list.
-    return totals
+    return totals, highest
 
 def check_solution():
-    products = [{"category":"food","price":4,"quantity":3},{"category":"food","price":2,"quantity":5},{"category":"home","price":8,"quantity":1}]
-    assert category_values(products) == {"food":22,"home":9}
-    assert category_values([]) == {}
+    products = [
+        {"category":"grocery","price":3,"quantity":10},{"category":"grocery","price":5,"quantity":4},
+        {"category":"toys","price":12,"quantity":2},{"category":"books","price":7,"quantity":9},
+    ]
+    assert category_values(products) == ({"grocery":50,"toys":24,"books":63},"books")
+    assert category_values([]) == ({},"")
 
     print("All checks passed!")
 
