@@ -24,6 +24,15 @@ jobs:
   changed-issues:
     name: the files you changed pass their own checks
     runs-on: ubuntu-latest
+    # Contributors' fix PRs are what this check exists for. A maintainer doing
+    # repository maintenance touches many issue files at once and those files
+    # are SUPPOSED to still fail, so verifying them would always be red and
+    # would mean nothing. Outside contributors cannot skip this: only people
+    # who already have write access get OWNER/MEMBER/COLLABORATOR here.
+    if: >-
+      github.event.pull_request.author_association != 'OWNER' &&
+      github.event.pull_request.author_association != 'MEMBER' &&
+      github.event.pull_request.author_association != 'COLLABORATOR'
     steps:
       - uses: actions/checkout@v4
         with:
